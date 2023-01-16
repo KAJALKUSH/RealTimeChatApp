@@ -3,22 +3,48 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
+  body {
+  margin: 0 auto;
+  max-width: auto;
+  padding: 0 50px;
+}
+
+.container {
+  border: 2px solid black;
+  background-color: lightgray;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 20px 0;
+}
+
+
+
+.container::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+.time-left {
+  float: left;
+  color: #999;
+}
+</style>
 
 
 <script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
 </head>
 <body>
 
-<h2>{{room}} - DjChat</h2>
+<h2>{{room}} - RealTime Chat</h2>
 
-<div id="display">
 
-<!-- <div class="container darker">
-  <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
-  <span class="time-left">20th, April 2021</span>
-</div> -->
-
-</div>
 
 <script>
 $(document).ready(function(){
@@ -37,14 +63,46 @@ setInterval(function(){
             }
         },
         error: function(response){
-            alert('An error occured')
+            //alert('An error occured')
         }
     });
 },1000);
 })
 </script>
 
+<div class="container">
+    <style>
+    input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid black;
+    border-radius: 8px;
+    box-sizing: border-box;
+    }
 
+    input[type=submit] {
+    width: 100%;
+    background-color: red;
+    color: black;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+
+    input[type=submit]:hover {
+    background-color: darkgray;
+    }
+
+    div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 5px;
+    margin: 20px 0;
+    }
 
     </style>
 
