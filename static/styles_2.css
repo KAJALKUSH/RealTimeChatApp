@@ -1,0 +1,31 @@
+input[type=text], select {
+width: 100%;
+padding: 12px 20px;
+margin: 8px 0;
+display: inline-block;
+border: 1px solid black;
+border-radius: 8px;
+box-sizing: border-box;
+}
+
+input[type=submit] {
+width: 100%;
+background-color: red;
+color: rgb(15, 15, 15);
+padding: 14px 20px;
+margin: 8px 0;
+border: 1px solid black;
+border-radius: 0px;
+cursor: pointer;
+}
+
+input[type=submit]:hover {
+background-color: darkslategray;
+}
+
+div {
+border-radius: 500px;
+background-color: red;
+padding: 5px;
+margin: 20px 0;
+}

@@ -1,44 +1,10 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {
-  margin: 0 auto;
-  max-width: auto;
-  padding: 0 50px;
-}
-
-.container {
-  border: 2px solid black;
-  background-color: lightgray;
-  border-radius: 10px;
-  padding: 20px;
-  margin: 20px 0;
-}
-
-
-
-.container::after {
-  content: "";
-  clear: both;
-  display: table;
-}
-
-
-
-
-
-.time-right {
-  float: right;
-  color: rgb(25, 173, 55);
-}
-
-.time-left {
-  float: left;
-  color: rgb(33, 25, 25);
-}
-</style>
+<link rel="stylesheet" href="{% static 'styles_1.css' %}">
 </head>
 <body>
 
@@ -48,40 +14,7 @@ body {
 
 
 <div class="container">
-    <style>
-    input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid black;
-    border-radius: 8px;
-    box-sizing: border-box;
-    }
-
-    input[type=submit] {
-    width: 100%;
-    background-color: red;
-    color: rgb(15, 15, 15);
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: 1px solid black;
-    border-radius: 0px;
-    cursor: pointer;
-    }
-
-    input[type=submit]:hover {
-    background-color: darkslategray;
-    }
-
-    div {
-    border-radius: 500px;
-    background-color: red;
-    padding: 5px;
-    margin: 20px 0;
-    }
-    </style>
-
+  <link rel="stylesheet" href="{% static 'styles_2.css' %}">
     <form id="post-form" method="POST" action="checkview">
         {% csrf_token %}
         <label>Room Name</label>
