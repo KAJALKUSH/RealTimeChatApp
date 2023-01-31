@@ -3,6 +3,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Realtime Chat</title>
     <link rel="stylesheet" href="{% static 'styles_1.css' %}">
     <script 
         src="https://code.jquery.com/jquery-3.1.1.min.js" 
@@ -15,68 +16,82 @@
 <div align="center">
     <h1>Realtime Chat App</h1>
     <h2 align="left"> Room Name: {{room}} </h2>
-    <h2 align="left"> User Name: {{username}}</h2>
+    <h2 align="left"> User Name: {{username}} </h2>
 </div>
 
 <div id="display"></div>
   
 <script>
-  $('body').ready(function(){
+    $('body').ready(function(){
   
-    setInterval(function(){
-        $.ajax({
-            type: 'GET',
-            url : "/getMessages/{{room}}/",
-            success: function(response) {
-                console.log(response);
-                $("#display").empty();
-    
-                var currentDate = "";
-                var currentName = "";
-    
-                for (var key in response.messages)
-                {
-                  var recentDate = response.messages[key].date.slice(0,10);
-                  if (recentDate != currentDate) {
-                    currentDate =
-                        "<div class='date-tab'>"+
-                        recentDate
-                        +"</div>";
-                    $("#display").append(currentDate);
-                    currentDate = recentDate;
-                  }
-    
-                  var recentName = response.messages[key].user;
-                  if (recentName != currentName) {
-                    var temp =
-                        "<div class='container darker'><b>"+
-                        response.messages[key].user
-                        +"</b><p class='para'>"+
-                        response.messages[key].value
-                        +"</p><span class='time-left'>"+
-                        response.messages[key].date.slice(11,16)
-                        +"</span></div>";
-                    $("#display").append('<br>');
-                    $("#display").append(temp);
-                    currentName = recentName;
-                  } else {
-                    var temp =
-                      "<div class='container darker'><p class='para'>"+
-                      response.messages[key].value
-                      +"</p><span class='time-left'>"+
-                      response.messages[key].date.slice(11,16)
-                      +"</span></div>";
-                    $("#display").append(temp);
-                  }
-    
+        setInterval(function(){
+            $.ajax({
+                type: 'GET',
+                url : "/getMessages/{{room}}/",
+                success: function(response) {
+                    console.log(response);
+                    $("#display").empty();
+        
+                    var recentUserDate = "";
+                    var recentUserName = "";
+        
+                    for (var key in response.messages)
+                    {
+                        var currentUserDate = response.messages[key].date.slice(0,10);
+                        if (currentUserDate != recentUserDate) {
+                            recentUserDate =
+                                "<div class='date-tab'>"+
+                                currentUserDate
+                                +"</div>";
+                            $("#display").append(recentUserDate);
+                            recentUserDate = currentUserDate;
+                        }
+        
+                        var currentUserName = response.messages[key].user;
+                        if (currentUserName != recentUserName) {
+                            var usertext = 
+                                "<b>"+
+                                response.messages[key].user
+                                +"</b><p class='paragraph'>"+
+                                response.messages[key].value
+                                +"</p>";
+                        } else {
+                            var usertext = 
+                                "<p class='paragraph'>"+
+                                response.messages[key].value
+                                +"</p>";
+                        };
+
+                        var temp =
+                            "<div class='container darker'>"+
+                            usertext
+                            +"<span class='time-right'>"+
+                            response.messages[key].date.slice(11,16)
+                            +"</span></div>";
+
+                        if (currentUserName != recentUserName) { 
+                            $("#display").append("<br>"); 
+                        };
+                        if (currentUserName != "{{username}}") {
+                            $("#display").append(temp);
+                        } else {
+                            var mymessage = 
+                                "<div class='container lighter'><p class='paragraph'>"+
+                                response.messages[key].value
+                                +"</p><span class='time-right'>"+
+                                response.messages[key].date.slice(11,16)
+                                +"</span></div>";
+                            $("#display").append(mymessage);
+                        };
+                        recentUserName = currentUserName;
+                    }
+                },
+                error: function(response){
+                    alert('An error occured')
                 }
-            },
-            error: function(response){
-                alert('An error occured')
-            }
-        });
-    },1000);
-  })
+            });
+        },1000);
+    })
 </script>
 
 <div class="container">
