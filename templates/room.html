@@ -2,46 +2,82 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{% static 'styles_1.css' %}">
-<script   src="https://code.jquery.com/jquery-3.1.1.min.js"   integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'styles_1.css' %}">
+    <script 
+        src="https://code.jquery.com/jquery-3.1.1.min.js" 
+        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="   
+        crossorigin="anonymous"
+    ></script>
 </head>
 <body>
 
-<h2>{{room}} - RealTime Chat</h2>
+<div align="center">
+    <h1>Realtime Chat App</h1>
+    <h2 align="left"> Room Name: {{room}} </h2>
+    <h2 align="left"> User Name: {{username}}</h2>
+</div>
 
-<div id="display">
-
-  <!-- <div class="container darker">
-    <b>Tom</b><p>Hello Everyone, How Are You Guys Doing?</p>
-    <span class="time-left">20th, April 2021</span>
-  </div> -->
+<div id="display"></div>
   
-  </div>
+<script>
+  $('body').ready(function(){
   
-  <script>
-  $(document).ready(function(){
-  
-  setInterval(function(){
-      $.ajax({
-          type: 'GET',
-          url : "/getMessages/{{room}}/",
-          success: function(response){
-              console.log(response);
-              $("#display").empty();
-              for (var key in response.messages)
-              {
-                  var temp="<div class='container darker'><b>"+response.messages[key].user+"</b><p>"+response.messages[key].value+"</p><span class='time-left'>"+response.messages[key].date+"</span></div>";
-                  $("#display").append(temp);
-              }
-          },
-          error: function(response){
-              alert('An error occured')
-          }
-      });
-  },1000);
+    setInterval(function(){
+        $.ajax({
+            type: 'GET',
+            url : "/getMessages/{{room}}/",
+            success: function(response) {
+                console.log(response);
+                $("#display").empty();
+    
+                var currentDate = "";
+                var currentName = "";
+    
+                for (var key in response.messages)
+                {
+                  var recentDate = response.messages[key].date.slice(0,10);
+                  if (recentDate != currentDate) {
+                    currentDate =
+                        "<div class='date-tab'>"+
+                        recentDate
+                        +"</div>";
+                    $("#display").append(currentDate);
+                    currentDate = recentDate;
+                  }
+    
+                  var recentName = response.messages[key].user;
+                  if (recentName != currentName) {
+                    var temp =
+                        "<div class='container darker'><b>"+
+                        response.messages[key].user
+                        +"</b><p class='para'>"+
+                        response.messages[key].value
+                        +"</p><span class='time-left'>"+
+                        response.messages[key].date.slice(11,16)
+                        +"</span></div>";
+                    $("#display").append('<br>');
+                    $("#display").append(temp);
+                    currentName = recentName;
+                  } else {
+                    var temp =
+                      "<div class='container darker'><p class='para'>"+
+                      response.messages[key].value
+                      +"</p><span class='time-left'>"+
+                      response.messages[key].date.slice(11,16)
+                      +"</span></div>";
+                    $("#display").append(temp);
+                  }
+    
+                }
+            },
+            error: function(response){
+                alert('An error occured')
+            }
+        });
+    },1000);
   })
-  </script>
+</script>
 
 <div class="container">
     <link rel="stylesheet" href="{% static 'styles_2.css' %}">
