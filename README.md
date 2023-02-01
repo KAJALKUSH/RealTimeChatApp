@@ -28,9 +28,9 @@ To deploy this project run
 ## Demo :
 
 - Home Page
-![Screenshot (138)](https://user-images.githubusercontent.com/113499583/215978442-58a7b936-c258-4e67-b0e9-0931c582a90a.png)
+<img alt="Home" src="https://user-images.githubusercontent.com/113499583/215981866-52f84316-3340-420a-b0d0-39a3df5e576c.png">
 - Chat Room
-
+<img alt="Chat Room" src="https://user-images.githubusercontent.com/113499583/215982196-fd0f103f-634d-4bc8-bcf2-0fd26e5b0897.png">
 
 ## Contributors :
 
