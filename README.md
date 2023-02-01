@@ -1,7 +1,7 @@
 # Realtime Chat App
 
 ## Description :
-A realtime chatapp created using django and ajax. User can join chatrooms and chat with others in real time. Chatroom structure is made similar to Whatsapp.
+A realtime chatapp created using django and ajax. User can join chatrooms and chat with others in real time.
 
 ## Requirements :
 - Python
