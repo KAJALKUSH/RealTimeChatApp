@@ -20,79 +20,12 @@
 </div>
 
 <div id="display"></div>
-  
-<script>
-    $('body').ready(function(){
-  
-        setInterval(function(){
-            $.ajax({
-                type: 'GET',
-                url : "/getMessages/{{room}}/",
-                success: function(response) {
-                    console.log(response);
-                    $("#display").empty();
-        
-                    var recentUserDate = "";
-                    var recentUserName = "";
-        
-                    for (var key in response.messages)
-                    {
-                        var currentUserDate = response.messages[key].date.slice(0,10);
-                        if (currentUserDate != recentUserDate) {
-                            recentUserDate =
-                                "<div class='date-tab'>"+
-                                currentUserDate
-                                +"</div>";
-                            $("#display").append(recentUserDate);
-                            recentUserDate = currentUserDate;
-                        }
-        
-                        var currentUserName = response.messages[key].user;
-                        if (currentUserName != recentUserName) {
-                            var usertext = 
-                                "<b>"+
-                                response.messages[key].user
-                                +"</b><p class='paragraph'>"+
-                                response.messages[key].value
-                                +"</p>";
-                        } else {
-                            var usertext = 
-                                "<p class='paragraph'>"+
-                                response.messages[key].value
-                                +"</p>";
-                        };
 
-                        var temp =
-                            "<div class='container darker'>"+
-                            usertext
-                            +"<span class='time-right'>"+
-                            response.messages[key].date.slice(11,16)
-                            +"</span></div>";
-
-                        if (currentUserName != recentUserName) { 
-                            $("#display").append("<br>"); 
-                        };
-                        if (currentUserName != "{{username}}") {
-                            $("#display").append(temp);
-                        } else {
-                            var mymessage = 
-                                "<div class='container lighter'><p class='paragraph'>"+
-                                response.messages[key].value
-                                +"</p><span class='time-right'>"+
-                                response.messages[key].date.slice(11,16)
-                                +"</span></div>";
-                            $("#display").append(mymessage);
-                        };
-                        recentUserName = currentUserName;
-                    }
-                },
-                error: function(response){
-                    alert('An error occured')
-                }
-            });
-        },1000);
-    })
+<script type="text/javascript">
+    var user_name = "{{username}}";
+    var url = '/getMessages/{{room}}/';
 </script>
+<script src="{% static 'index_2.js' %}"></script>
 
 <div class="container">
     <link rel="stylesheet" href="{% static 'styles_2.css' %}">
@@ -106,25 +39,6 @@
 </div>
 </body>
 
-<script type="text/javascript">
-  $(document).on('submit','#post-form',function(e){
-    e.preventDefault();
-
-    $.ajax({
-      type:'POST',
-      url:'/send',
-      data:{
-          username:$('#username').val(),
-          room_id:$('#room_id').val(),
-          message:$('#message').val(),
-        csrfmiddlewaretoken:$('input[name=csrfmiddlewaretoken]').val(),
-      },
-      success: function(data){
-         //alert(data)
-      }
-    });
-    document.getElementById('message').value = ''
-  });
-</script>
+<script type="text/javascript" src="{% static 'index_1.js' %}"></script>
 
 </html>
